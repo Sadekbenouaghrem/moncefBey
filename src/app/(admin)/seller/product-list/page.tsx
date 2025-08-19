@@ -44,7 +44,7 @@ const ProductList = () => {
         body: JSON.stringify({ id }),
       });
       if (!res.ok) throw new Error("Erreur lors de la suppression");
-
+      setProducts(products.filter((product) => product.id !== id));
       toast.success("Produit supprimé !");
     } catch (error) {
       console.error(error);
