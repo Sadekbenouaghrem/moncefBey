@@ -1,55 +1,51 @@
-// app/api/products/route.ts
+// app/api/products/id/route.ts
 
-import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma'; // Adjust the path as needed
 
-// PUT - Update product by id
 export async function PUT(request: Request) {
   try {
-    // Get the product data and id from the request body (example)
     const body = await request.json();
-    const { id, name, description, price, quantity, categoryId } = body;
+    const { id, name, price } = body;
 
-    if (!id) {
-      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
-    }
+    console.log("PUT request data:", body);  // Log the request body for debugging
 
-    // Update the product in the database
+    // Update the product
     const updatedProduct = await prisma.product.update({
-      where: { id: id },
-      data: {
-        name,
-        description,
-        price,
-        quantity,
-        categoryId,
-
-      },
+      where: { id },
+      data: { name, price },
     });
 
-    return NextResponse.json(updatedProduct);  // Return the updated product
+    return NextResponse.json(updatedProduct);
   } catch (error) {
-    return NextResponse.json({ error: 'Error updating product' }, { status: 500 });
+    console.error("Error updating product:", error);  // Log the error
+    return NextResponse.json({ error: "Error updating product" }, { status: 500 });
   }
 }
 
-// DELETE - Delete product by id
 export async function DELETE(request: Request) {
   try {
-    // Extract ID from query params or the body, depending on the request
     const body = await request.json();
     const { id } = body;
+
+    console.log("DELETE request data:", body);  // Log the request body for debugging
+
+    // Ensure that the id exists and is valid
     if (!id) {
-      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
+      console.error("No product ID provided.");
+      return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
     }
 
-    // Delete the product with the provided id
-    await prisma.product.delete({
-      where: { id: id },
+    // Delete the product
+    const deletedProduct = await prisma.product.delete({
+      where: { id },
     });
 
-    return NextResponse.json({ message: 'Product deleted successfully' });  // Confirm deletion
+    console.log("Product deleted:", deletedProduct);  // Log the deleted product for verification
+
+    return NextResponse.json({ message: "Product deleted successfully" });
   } catch (error) {
-    return NextResponse.json({ error: 'Error deleting product' }, { status: 500 });
+    console.error("Error deleting product:", error);  // Log the error
+    return NextResponse.json({ error: "Error deleting product" }, { status: 500 });
   }
 }
