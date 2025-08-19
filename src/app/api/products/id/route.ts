@@ -37,9 +37,8 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     // Extract ID from query params or the body, depending on the request
-    const url = new URL(request.url);
-    const id = url.searchParams.get('id'); // Get the ID from query parameter
-
+    const body = await request.json();
+    const { id } = body;
     if (!id) {
       return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
     }
