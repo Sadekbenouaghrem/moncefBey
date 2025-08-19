@@ -3,8 +3,10 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../../lib/prisma';  // Adjust the path as needed
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+// PUT - Update product by id
+export async function PUT(request: Request, context: { params: { id: string } }) {
+  const { id } = context.params;  // Extract the ID from the params object
+
   try {
     const body = await request.json();
     const { name, price } = body;
@@ -16,19 +18,23 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
     return NextResponse.json(updatedProduct);
   } catch (error) {
-    return NextResponse.json({ error: 'Error updating product' }, { status: 500 });
+    console.error("Error updating product:", error);
+    return NextResponse.json({ error: "Error updating product" }, { status: 500 });
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+// DELETE - Delete product by id
+export async function DELETE(request: Request, context: { params: { id: string } }) {
+  const { id } = context.params;  // Extract the ID from the params object
+
   try {
     const deletedProduct = await prisma.product.delete({
       where: { id },
     });
 
-    return NextResponse.json({ message: 'Product deleted successfully' });
+    return NextResponse.json({ message: "Product deleted successfully" });
   } catch (error) {
-    return NextResponse.json({ error: 'Error deleting product' }, { status: 500 });
+    console.error("Error deleting product:", error);
+    return NextResponse.json({ error: "Error deleting product" }, { status: 500 });
   }
 }
