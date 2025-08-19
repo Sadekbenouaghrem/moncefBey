@@ -13,7 +13,7 @@ export default function ContactUs() {
           </p>
           <div className="flex justify-center space-x-6 text-3xl">
             <a
-              href="https://wa.me/21624096377"
+              href="https://wa.me/21699957941"
               target="_blank"
               rel="noopener noreferrer"
               className="text-green-500 hover:scale-110 transition-transform"
@@ -21,7 +21,7 @@ export default function ContactUs() {
               <FaWhatsapp />
             </a>
             <a
-              href="https://facebook.com/YOUR_FACEBOOK_USERNAME"
+              href="https://www.facebook.com/sadok.benouaghrem.7"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:scale-110 transition-transform"

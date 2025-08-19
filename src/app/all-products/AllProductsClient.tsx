@@ -40,7 +40,20 @@ const AllProductsClient: React.FC = () => {
       <Navbar />
       <div className="flex flex-col md:flex-row px-6 md:px-16 lg:px-32 gap-8">
 
-        
+        <div className="flex-1">
+          <div className="flex flex-col items-end pt-12">
+            <p className="text-2xl font-medium">All products</p>
+            <div className="w-16 h-0.5 bg-orange-600 rounded-full"></div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-12 pb-14 w-full">
+            {filteredProducts.map((product, index) => (
+              <ProductCard
+                key={product.id ?? index}
+                product={product}
+              />
+            ))}
+          </div>
+        </div>
         {/* Filtre catégorie (sidebar droite) */}
         <div className="w-full md:w-64 lg:w-72 border-l pl-6 mt-12">
           <h2 className="text-lg font-semibold mb-4">Filter by Category</h2>
@@ -61,20 +74,7 @@ const AllProductsClient: React.FC = () => {
         </div>
       </div>
               {/* Section Produits */}
-        <div className="flex-1">
-          <div className="flex flex-col items-end pt-12">
-            <p className="text-2xl font-medium">All products</p>
-            <div className="w-16 h-0.5 bg-orange-600 rounded-full"></div>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-12 pb-14 w-full">
-            {filteredProducts.map((product, index) => (
-              <ProductCard
-                key={product.id ?? index}
-                product={product}
-              />
-            ))}
-          </div>
-        </div>
+        
 
         
       <Footer />
