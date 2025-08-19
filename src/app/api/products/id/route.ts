@@ -36,14 +36,29 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
     }
 
-    // Delete the product
+    // Delete related ProductImage entries
+    await prisma.productImage.deleteMany({
+      where: { productId: id },
+    });
+
+    // Delete related OrderItem entries (you may need to handle them differently depending on your business logic)
+    await prisma.orderItem.deleteMany({
+      where: { productId: id },
+    });
+
+    // Delete related Review entries
+    await prisma.review.deleteMany({
+      where: { productId: id },
+    });
+
+    // Delete the product itself
     const deletedProduct = await prisma.product.delete({
       where: { id },
     });
 
-    console.log("Product deleted");  // Log the deleted product for verification
+    console.log("Product deleted:", deletedProduct);  // Log the deleted product for verification
 
-    return NextResponse.json({ message: "Product deleted successfully" });
+    return NextResponse.json({ message: "Product and related data deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);  // Log the error
     return NextResponse.json({ error: "Error deleting product" }, { status: 500 });
