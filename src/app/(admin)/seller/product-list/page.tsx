@@ -38,10 +38,10 @@ const ProductList = () => {
     if (!confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) return;
 
     try {
-      // Correct URL for DELETE request
-      const res = await fetch(`/api/products/${id}`, {
+      const res = await fetch("/api/products/id", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
       });
       if (!res.ok) throw new Error("Erreur lors de la suppression");
 
@@ -63,12 +63,11 @@ const ProductList = () => {
   const handleUpdate = async () => {
     if (!editingProduct) return;
     try {
-      // Correct URL for PUT request
-      const res = await fetch(`/api/products/${editingProduct.id}`, {
+      const res = await fetch("/api/products/id", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          id: editingProduct.id,  // Pass id in the body
+          id: editingProduct.id,
           name: updatedName,
           price: updatedPrice,
         }),

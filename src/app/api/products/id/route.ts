@@ -41,7 +41,7 @@ export async function DELETE(request: Request) {
       where: { id },
     });
 
-    console.log("Product deleted:", deletedProduct);  // Log the deleted product for verification
+    console.log("Product deleted");  // Log the deleted product for verification
 
     return NextResponse.json({ message: "Product deleted successfully" });
   } catch (error) {
