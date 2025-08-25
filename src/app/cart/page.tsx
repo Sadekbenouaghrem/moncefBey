@@ -5,7 +5,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import OrderSummary from "@/components/OrderSummary";
 import { useAppContext } from "@/context/AppContext";
-import { assets } from "../../../../assets/assets";
+import { assets } from "../../../assets/assets";
 import type { ProductWithImages } from "@/types"; // Adjust path if needed
 
 const Cart: React.FC = () => {

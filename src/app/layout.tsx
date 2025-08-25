@@ -9,7 +9,7 @@ import { SessionProvider } from "next-auth/react";
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export const metadata = {
-  title: "QuickCart - GreatStack",
+  title: "Moncef Bey Shop",
   description: "E-Commerce with Next.js ",
 };
 

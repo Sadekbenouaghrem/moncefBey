@@ -51,9 +51,9 @@ const OrderSummary: React.FC = () => {
       toast.error("Veuillez remplir tous les champs : nom complet, adresse et téléphone.");
       return;
     }
-    const userId = session?.user?.id || (session as any)?.user?.uid;
+    const userId = session?.user?.id || null;
 console.log({
-  userId: session?.user?.id,
+  userId: userId,
   status: "PENDING",
   totalAmount: totalAmount + livraisonFee,
   address,
@@ -67,6 +67,7 @@ console.log({
       address,
       phone,
       items: orderItems,
+      fullName
     };
 
     try {

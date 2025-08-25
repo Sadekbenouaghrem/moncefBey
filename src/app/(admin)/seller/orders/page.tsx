@@ -61,7 +61,7 @@ const Orders = () => {
                   </div>
                   <div>
                     <p>
-                      <span className="font-medium">{order.user?.name ?? "Unknown"}</span>
+                      <span className="font-medium">{order.user?.name ?? order.fullName}</span>
                       <br />
                       {/* address is a string in your schema, so just output it */}
                       <span>{order.address}</span>

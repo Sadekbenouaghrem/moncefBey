@@ -64,3 +64,31 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: "Error deleting product" }, { status: 500 });
   }
 }
+
+export async function POST(request: Request) {
+  try {
+        const { id } = await request.json();
+
+    if (!id) {
+      return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
+    }
+
+    // Fetch the product by ID, including related images and category
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        images: true,
+        category: true,  // Include the category in the response
+      },
+    });
+
+    if (!product) {
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(product);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return NextResponse.json({ error: "Error fetching product" }, { status: 500 });
+  }
+}
